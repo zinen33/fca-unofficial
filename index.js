@@ -281,18 +281,18 @@ function loginHelper(appState, email, password, globalOptions, callback, prCallb
     .then(async () => {
       if (global.fca.config.autoUpdate) {
         try {
-          exec('npm view @dongdev/fca-unofficial version', async (error, stdout, stderr) => {
+          exec('npm view @fca-luna', async (error, stdout, stderr) => {
             if (error) {
               logger('Error checking version: ' + error, 'error');
               return;
             }
             const npmVersion = stdout.trim();
-            const localbrand = JSON.parse(readFileSync('./node_modules/@dongdev/fca-unofficial/package.json')).version;
+            const localbrand = JSON.parse(readFileSync('./node_modules/@fca-luna/package.json')).version;
             if (localbrand !== npmVersion) {
               logger(`New Version Published: ${localbrand} => ${npmVersion}`, 'warn');
               logger(`Perform Automatic Update to the Latest Version !`, 'warn');
               try {
-                execSync('npm install @dongdev/fca-unofficial@latest', { stdio: 'inherit' });
+                execSync('npm install @fca-luna', { stdio: 'inherit' });
                 logger("Upgrade Version Successfully!", "[ FCA-UNO ] >")
                 logger('Restarting...', '[ FCA-UNO ] >');
                 await new Promise(resolve => setTimeout(resolve, 5 * 1000));
